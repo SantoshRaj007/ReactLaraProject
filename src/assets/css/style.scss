@@ -36,7 +36,7 @@ h4{
 a{
     text-decoration: none;
     color: $primary-black;
-    &::hover{
+    &:hover{
         color: $primary-color;
     }
 }
@@ -61,19 +61,25 @@ ul{
     max-width: 1440px;
 }
 
+.nav-tabs{
+    .nav-link{
+        color: $primary-black;
+    }
+}
+
 .btn{
-    // &.btn-size{
-    //     background-color: rgba($primary-black, 0.03);
-    //     border-color: rgba($primary-black, 0.05);
-    //     padding: 7px 15px;
-    //     &.active{
-    //         border-color:  rgba($primary-black, 0.20);;
-    //     }
-    //     &:hover{
-    //         border-color:  rgba($primary-black, 0.20);;
-    //         color: $primary-black;
-    //     }
-    // }
+    &.btn-size{
+        background-color: rgba($primary-black, 0.03);
+        border-color: rgba($primary-black, 0.05);
+        padding: 7px 15px;
+        &.active{
+            border-color:  rgba($primary-black, 0.20);;
+        }
+        &:hover{
+            border-color:  rgba($primary-black, 0.20);;
+            color: $primary-black;
+        }
+    }
     &.btn-primary{
         background-color: $primary-color;
         border-color: $primary-color;
@@ -171,11 +177,33 @@ footer{
         }
         .price{
             font-size: 1.2rem;
+            padding-bottom: 20px;
             span{
                 color: rgba($primary-black, 0.5);
             }
         }
     }
+}
+
+.product-detail{
+    .mySwiper{
+        .swiper-slide{
+            height: auto !important;
+        }
+    }
+    .price{
+        font-size: 18px;
+        font-weight: bold;
+        span{
+            color: rgba($primary-black, 0.5);
+        }
+    }
+}
+
+.details{
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba($primary-black, 0.8);
 }
 
 @media(min-width: 200px) and (max-width: 768px) {
