@@ -206,6 +206,10 @@ footer{
     color: rgba($primary-black, 0.8);
 }
 
+.login{
+    width: 450px;
+}
+
 @media(min-width: 200px) and (max-width: 768px) {
     .section-1{
         .swiper{

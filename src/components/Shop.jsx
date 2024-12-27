@@ -8,9 +8,9 @@ const Shop = () => {
         <Layout>
             <div className='container'>
                 <nav aria-label="breadcrumb" className='py-4'>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><Link to={'/'}>Home</Link></li>
-                        <li class="breadcrumb-item active" aria-current="page">Shop</li>
+                    <ol className="breadcrumb">
+                        <li className="breadcrumb-item"><Link to={'/'}>Home</Link></li>
+                        <li className="breadcrumb-item active" aria-current="page">Shop</li>
                     </ol>
                 </nav>
                 <div className='row'>
