@@ -7,11 +7,15 @@ import Checkout from './components/Checkout'
 import Login from './components/admin/Login'
 import { ToastContainer, toast } from 'react-toastify';
 import Dashboard from './components/admin/Dashboard'
+import { AdminRequireAuth } from './components/admin/AdminRequireAuth'
+import { default as ShowCategories } from './components/admin/category/Show'
+import { default as CreateCategory } from './components/admin/category/Create'
+import {default as EditCategory} from './components/admin/category/Edit'
 
 function App() {
     return (
         <>
-           <BrowserRouter>
+            <BrowserRouter>
                 <Routes>
                     <Route path='/' element={<Home />} />
                     <Route path='/shop' element={<Shop />} />
@@ -20,11 +24,34 @@ function App() {
                     <Route path='/checkout' element={<Checkout />} />
 
                     <Route path='/admin/login' element={<Login />} />
-                    <Route path='/admin/dashboard' element={<Dashboard />} />
+
+                    <Route path='/admin/dashboard' element={
+                        <AdminRequireAuth>
+                            <Dashboard />
+                        </AdminRequireAuth>
+                    } />
+
+                    <Route path='/admin/categories' element={
+                        <AdminRequireAuth>
+                            <ShowCategories />
+                        </AdminRequireAuth>
+                    } />
+
+                    <Route path='/admin/categories/create' element={
+                        <AdminRequireAuth>
+                            <CreateCategory />
+                        </AdminRequireAuth>
+                    } />
+
+                    <Route path='/admin/categories/edit/:id' element={
+                        <AdminRequireAuth>
+                            <EditCategory />
+                        </AdminRequireAuth>
+                    } />
 
                 </Routes>
-           </BrowserRouter>
-           <ToastContainer />
+            </BrowserRouter>
+            <ToastContainer />
         </>
     )
 }
