@@ -102,7 +102,10 @@ const Show = () => {
                                                         <tr key={index}>
                                                             <td>{index + 1}</td>
                                                             <td>
-                                                                <img src={product.image_url} alt='product_img' width={50} />
+                                                            {
+                                                                (product.image_url == "") ? <img src='https://placehold.co/50x50' /> : <img src={product.image_url} alt='product_img' width={50} />
+                                                            }
+                                                                
                                                             </td>
                                                             <td>{product.title}</td>
                                                             <td>{product.price}</td>

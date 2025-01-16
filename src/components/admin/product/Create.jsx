@@ -13,6 +13,8 @@ const Create = ({ placeholder }) => {
     const [disable, setDisable] = useState(false)
     const [categories, setCategories] = useState([])
     const [brands, setBrands] = useState([])
+    const [gallery,setGallery] = useState([])
+    const [galleryImages,setGalleryImages] = useState([])
     const navigate = useNavigate();
 
     const config = useMemo(() => (
@@ -32,7 +34,7 @@ const Create = ({ placeholder }) => {
     } = useForm();
 
     const saveProduct = async (data) => {
-        const formData = {...data, "content": content}
+        const formData = {...data, "description": content, "gallery": gallery}
         setDisable(true);
         console.log(data)
         const res = await fetch(`${apiUrl}/products`, {
@@ -50,6 +52,7 @@ const Create = ({ placeholder }) => {
                     toast.success(result.message);
                     navigate('/admin/products')
                 } else {
+                    const formErrors = result.errors;
                     Object.keys(formErrors).forEach((field)=> {
                         setError(field, { message: formErrors[field][0]});
                     })
@@ -85,6 +88,36 @@ const Create = ({ placeholder }) => {
                 console.log(result)
                 setBrands(result.data)
             })
+    }
+
+    const handleFile = async(e) => {
+        const formData =  new FormData();
+        const file = e.target.files[0];
+        formData.append("image",file);
+        setDisable(true)
+
+        const res = await fetch(`${apiUrl}/temp-images`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${adminToken()}`
+            },
+            body: formData
+        }).then(res => res.json())
+            .then(result => {
+                gallery.push(result.data.id)
+                setGallery(gallery)
+
+                galleryImages.push(result.data.image_url)
+                setGalleryImages(galleryImages)
+                setDisable(false)
+            })
+    } 
+
+    const deleteImage = (image) => {
+        const newGallery = galleryImages.filter(gallery => gallery != image)
+        setGalleryImages(newGallery)
+        e.target.value = ""
     }
 
     useEffect(() => {
@@ -307,7 +340,21 @@ const Create = ({ placeholder }) => {
                                     </div>
                                     <div className='mb-3'>
                                         <label htmlFor='' className='form-label'>Image</label>
-                                        <input type='file' placeholder='Upload Image' className='form-control' />
+                                        <input onChange={handleFile} type='file' placeholder='Upload Image' className='form-control' />
+                                    </div>
+                                    <div className='mb-3'>
+                                        <div className='row'>
+                                            {
+                                                galleryImages && galleryImages.map((image, index) => {
+                                                    return(
+                                                        <div className='col-md-3' key={`image-${index}`}>
+                                                            <img src={image} alt='product_img' className='w-100 mb-3' />
+                                                            <button className='btn btn-danger' onClick={() => deleteImage(image)}>Delete</button>
+                                                        </div>
+                                                    )
+                                                } )
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
